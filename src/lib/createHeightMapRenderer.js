@@ -95,6 +95,7 @@ export default function createHeightMapRenderer(appState, regionInfo, canvas) {
         for (let i = 0; i < width; i += 1) {
           let x = isEven ? i : width - 1 - i;
           let height = regionInfo.getHeightAtPoint(x, y);
+          console.log(height)
           let fY = y - Math.floor(scale * (height - minHeight) / heightRange);
           if (height <= oceanLevel) {
             drawSVGLine(lastLine, svg);
@@ -177,7 +178,8 @@ export default function createHeightMapRenderer(appState, regionInfo, canvas) {
 
         let lastRenderedColumnHeight = columnHeights[x];
         let isVisible = y <= lastRenderedColumnHeight && y >= 0 && y < trueWindowHeight;
-        if (isVisible) {
+        isVisible = true
+	if (isVisible) {
           // This is important bit. We mark the entire area below as "rendered"
           // so that next `isVisible` check will return false, and we will break the line
           columnHeights[x] = Math.min(y, lastRenderedColumnHeight)
